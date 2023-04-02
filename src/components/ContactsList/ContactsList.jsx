@@ -28,14 +28,15 @@ const ContactsList = () => {
     setSelectedIndex(id);
   };
   
-    const onFormClose = () => {
-    console.log('false');
-    setIsFormOpen(false);
+  const onFormClose = (e) => {
+    if (e.target.classList.contains('button-edit')) {
+      return;
+    }
+      setIsFormOpen(false);
+      setContactId('');
   }
     
   const editContact = (id) => {
-    console.log('true');
-    
     setContactId(id);
     setIsFormOpen(true);
   };
@@ -60,7 +61,7 @@ const ContactsList = () => {
             {error && <p>Oh no! Something went wrong. Please, try again later.</p>}
           </Box>
         </Grid>
-        {isFormOpen &&
+        {isFormOpen && contactId &&
           <ClickAwayListener onClickAway={onFormClose}>
             <Grid item xs={5} sx={{ pl: '0' }}>
               <EditContactForm id={contactId} onClose={onFormClose} />

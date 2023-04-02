@@ -31,9 +31,10 @@ const ContactItem = ({ contact, editContact, handleListItemClick, selected }) =>
             </Tooltip>
             <Tooltip
                 title="Edit"
-                onClick={() => editContact(id)}>
-                <IconButton aria-label="edit contact" color="primary">
-                    <EditIcon />
+                onClick={() => editContact(id)}
+                className="button-edit">
+                <IconButton aria-label="edit contact"  color="primary" className="button-edit">
+                    <EditIcon className="button-edit"/>
                 </IconButton>
             </Tooltip>
         </ListItemButton>
