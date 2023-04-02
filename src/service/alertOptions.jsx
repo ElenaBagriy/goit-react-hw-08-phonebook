@@ -5,7 +5,7 @@ import { IconButton } from "@mui/material";
 import styled from "styled-components";
 
 export const StyledMaterialDesignContent = styled(MaterialDesignContent)`
-width: 360px;
+width: 400px;
   &.notistack-MuiContent-success{
   background-color: #2D7738;
   }
