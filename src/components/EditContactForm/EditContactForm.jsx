@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
-import { selectContacts } from "redux/selectors";
 import { editContact } from "redux/operations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Grid, Button, Paper } from "@mui/material";
@@ -9,10 +8,10 @@ import { enqueueSnackbar } from "notistack";
 import { alertOptions } from "service/alertOptions";
 import { contactSchema } from "service/validationScheme";
 import { Field, Header, HelperText } from "./EditContactForm.styled";
+import PropTypes from "prop-types";
 
-const EditContactForm = ({ id, onClose }) => {
+const EditContactForm = ({ id, contact, onClose }) => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -22,12 +21,11 @@ const EditContactForm = ({ id, onClose }) => {
   });
 
   useEffect(() => {
-    const contact = contacts.find(contact => contact.id === id);
     setName(contact.name);
     setNumber(contact.number);
     setValue("name", contact.name);
     setValue("number", contact.number);
-  }, [id, contacts, setValue])
+  }, [contact, setValue])
 
   const onFormSubmit = editedData => {
     dispatch(editContact({ editedData, id }));
@@ -103,6 +101,12 @@ const EditContactForm = ({ id, onClose }) => {
       </Box>
     </Paper>
   )
+};
+
+EditContactForm.propTypes = {
+  id: PropTypes.string,
+  contact: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default EditContactForm;

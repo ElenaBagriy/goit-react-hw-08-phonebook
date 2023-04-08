@@ -28,22 +28,26 @@ const ContactsList = () => {
     setSelectedIndex(id);
   };
   
-  const onFormClose = (e) => {
-    if (e.target.classList.contains('button-edit')) {
+  const onFormClose = () => {
+    setIsFormOpen(false);
+    setContactId('');
+  };
+  
+  const onClickAway = (e) => {
+    if (e.target.closest('.button-edit') || e.target.classList.contains('button-edit')) {
       return;
     }
-      setIsFormOpen(false);
-      setContactId('');
-  }
-    
+    onFormClose();
+  };
+
   const editContact = (id) => {
     setContactId(id);
-    setIsFormOpen(true);
+    setIsFormOpen(true);    
   };
 
   return (
     <Container component="div">
-      <Grid container columnSpacing={3}>
+      <Grid container columnSpacing={3} >
         <Grid item xs={7}>
           <Box sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper' }}>
             {filteredContacts.length !== 0 &&
@@ -62,9 +66,9 @@ const ContactsList = () => {
           </Box>
         </Grid>
         {isFormOpen && contactId &&
-          <ClickAwayListener onClickAway={onFormClose}>
+          <ClickAwayListener onClickAway={onClickAway}>
             <Grid item xs={5} sx={{ pl: '0' }}>
-              <EditContactForm id={contactId} onClose={onFormClose} />
+              <EditContactForm id={contactId} onClose={onFormClose} contact= {filteredContacts.find(contact => contact.id === contactId)}/>
             </Grid>
           </ClickAwayListener>
         }

@@ -4,6 +4,7 @@ import { stringAvatar } from "service/stringAvatar";
 import { Avatar, Divider, IconButton, ListItemButton, ListItemIcon, ListItemText, Tooltip } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PropTypes from "prop-types";
 
 const ContactItem = ({ contact, editContact, handleListItemClick, selected }) => {
     const dispatch = useDispatch();
@@ -33,13 +34,20 @@ const ContactItem = ({ contact, editContact, handleListItemClick, selected }) =>
                 title="Edit"
                 onClick={() => editContact(id)}
                 className="button-edit">
-                <IconButton aria-label="edit contact"  color="primary" className="button-edit">
-                    <EditIcon className="button-edit"/>
+                <IconButton aria-label="edit contact"  color="primary">
+                    <EditIcon/>
                 </IconButton>
             </Tooltip>
         </ListItemButton>
         <Divider variant="inset" component="div" key={`div${id}`} />
     </li>
+};
+
+ContactItem.propTypes = {
+    contact: PropTypes.object.isRequired,
+    editContact: PropTypes.func.isRequired,
+    handleListItemClick: PropTypes.func.isRequired,
+    selected: PropTypes.bool,
 };
 
 export default ContactItem;
